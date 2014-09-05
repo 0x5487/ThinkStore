@@ -1,0 +1,407 @@
+<div>
+    <p>Add Product</p>
+
+    <div class="tab-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a id="detailTab" href="#details" data-toggle="tab" target="_self">Details</a></li>
+                <li><a id="optionTab" href="#options" data-toggle="tab" target="_self">Options</a></li>
+                <li><a href="#customFields" data-toggle="tab" target="_self">Custom Fields</a></li>
+                <li><a href="#images" data-toggle="tab" target="_self">Images</a></li>
+                <li><a href="#collections" data-toggle="tab" target="_self">Collections</a></li>
+                <li><a href="#seo" data-toggle="tab" target="_self">SEO</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="details">
+                    <form name="productDetailsForm" class="" role="form" novalidate>
+                    <div class="form-group" ng-class="{'has-error' : isSubmitted && productDetailsForm.name.$invalid}">
+                        <label>*Name&nbsp;</label><span class="text-danger" ng-show="isSubmitted && productDetailsForm.name.$error.required"><strong>Name can't be empty</strong></span>
+                        <div>
+                            <input type="text" name="name" class="form-control" ng-model="product.Name" ng-change="nameChange()" required/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Content</label>
+                        <div>
+                            <textarea class="form-control" rows="20" ng-model="product.Content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <div>
+                            <input type="text" class="form-control" name="tags" ng-model="product.Tags"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                            <label>SKU</label>
+                            <div>
+                                <input type="text" class="form-control" name="sku" ng-model="product.Sku"/>
+                            </div>
+                                </div>
+                            <div class="col-sm-6 col-md-6">
+                            <label>Vendor</label>
+                            <div >
+                                <input type="text" class="form-control" name="vendor" ng-model="product.Vendor"/>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6" ng-class="{'has-error' : isSubmitted && productDetailsForm.price.$invalid }">
+                                <label>*Price</label>&nbsp;<span class="text-danger" ng-show=" isSubmitted && productDetailsForm.price.$invalid"><strong>Price can't be empty</strong></span>
+                                <div>
+                                    <input type="number" name="price" class="form-control" ng-model="product.Price"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6" ng-class="{'has-error' : isSubmitted && productDetailsForm.regularPrice.$invalid }">
+                                <label>Regular Price</label>&nbsp;<span class="text-danger bold" ng-show="isSubmitted && productDetailsForm.regularPrice.$invalid"><strong>Regular price can't be empty</strong></span>
+                                <div>
+                                    <input type="number" name="regularPrice" class="form-control" ng-model="product.RegularPrice"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <label>Manage Inventory Method</label>
+                                <div>
+                                    <select id="selInventoryMethod" class="form-control" ng-model="product.ManageInventoryMethod">
+                                        <option value="1">No Track</option>
+                                        <option value="2">Tracking</option>
+                                    </select>
+                                    <div id="inventoryMethodPanel" style="padding-top: 20px; padding-left: 20px;" ng-show="product.ManageInventoryMethod == 2">
+                                        <div class="form-inline">
+                                            <p>
+                                            <label class="control-label">Invertory quantity</label>
+                                            <input type="text" class="form-control" name="invertoryQuantity" ng-model="product.InventoryQuantity"/>
+                                            </p>
+                                        </div>
+                                        <div class="form-inline">
+                                            <p>
+                                            <label class="control-label">Low level quantity</label>
+                                            <input type="text" class="form-control" name="lowLevelQuantity" ng-model="product.LowLevelQuantity"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <label>Shipping</label>
+                                <div>
+                                    <label class="checkbox-inline"><input type="checkbox" ng-model="product.IsShippingAddressRequired"/>Is shipping address required</label>
+                                    <div id="shippingAddressPanel" style="padding-top: 20px; padding-left: 20px;" ng-show="product.IsShippingAddressRequired" >
+                                        <div class="form-inline">
+                                            <p>
+                                                <label class="control-label">Weight</label>
+                                                <input type="text" class="form-control" name="weight" ng-model="product.Weight"/>
+                                                <select id="selWeight" class="form-control" ng-model="product.WeightUnit">
+                                                    <option value="1" selected>KG</option>
+                                                    <option value="2">LBS</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Setting</label>
+                        <div>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="product.IsVisible"/>Is visible</label>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="product.IsPurchasable"/>Is purchasable</label>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="product.IsBackOrder"/>Is back order enabled</label>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="product.IsPreOrder"/>Is pre-order enabled</label>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                     </form>
+                </div>
+                <div class="tab-pane content" id="options">
+                    <div class="form-inline">
+                        <label>How many options does this product have?</label>&nbsp;
+                        <select id="selOptionNumber" class="form-control" ng-model="optionNumber" ng-change="optionNumberChange()">
+                            <option value="0" selected>None</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div id="optionPanel">
+                        <div class="form-horizontal" ng-show="optionNumber >= 1">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-md-1 control-label">Option1 Label</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[0].Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-md-1 control-label">Option1 Values</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[0].Values"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="optionNumber >= 2">
+                                <label class="col-sm-1 control-label">Option2 Label</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[1].Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="optionNumber >= 2">
+                                <label class="col-sm-2 col-md-1 control-label">Option2 Values</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[1].Values"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="optionNumber >= 3">
+                                <label class="col-sm-2 col-md-1 control-label" >Option3 Label</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[2].Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="optionNumber >= 3">
+                                <label class="col-sm-2 col-md-1 control-label">Option3 Values</label>
+                                <div class="col-sm-10 col-md-11">
+                                    <input type="text" class="form-control" ng-model="product.Options[2].Values"/>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" ng-click="generateSKUs()">Generate SKUs</button>
+                                <button class="btn btn-default" data-toggle="modal" data-target="#md-variation" target="_self">Create</button>
+                                <button class="btn btn-default" ng-click="removeSelectedVariations()">Delete</button>
+                            </div>
+                            <div class="content">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatable">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:2%; vertical-align: middle;"><input type="checkbox" value="on" ng-click="selectedAllVariations($event)" ng-model="checkAllVariations"></th>
+                                            <th><strong>SKU</strong></th>
+                                            <th><strong>Options</strong></th>
+                                            <th><strong>Price</strong></th>
+                                            <th><strong>Invertory Quantity</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="odd gradeX" ng-repeat="variation in product.Variations">
+                                            <th class="vertical-align"><input type="checkbox" ng-model="variation.IsSelected"></th>
+                                            <td class="vertical-align">{{ variation.Sku }}</td>
+                                            <td>
+                                                <span ng-repeat="option in variation.Options">
+                                                    <strong>{{ option.Name}}:</strong> {{ option.Values}}<br/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {{ variation.Price }}
+                                            </td>
+                                            <td>
+                                                {{ variation.InventoryQuantity }}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="tab-pane content" id="customFields">
+                    <button class="btn btn-default" ng-click="createCustomField()">Create</button>
+                    <table class="no-border">
+                        <thead class="no-border">
+                        <tr>
+                            <th style="width:45%;">Name</th>
+                            <th>Value</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody class="no-border-x no-border-y">
+                        <tr ng-repeat="customField in product.CustomFields">
+                            <!-- Normal mode -->
+                            <td ng-if="customField.IsEditingMode == false">{{ customField.Name }}</td>
+                            <td ng-if="customField.IsEditingMode == false">{{ customField.Value }}</td>
+                            <td ng-if="customField.IsEditingMode == false" class="text-right" ><a class="label label-default" ng-click="customField.IsEditingMode = true"><i class="fa fa-pencil"></i></a> <a class="label label-danger" ng-click="removeCustomField($index)"><i class="fa fa-times"></i></a></td>
+                            <!-- Editing mode -->
+                            <td ng-if="customField.IsEditingMode"><input type="text" ng-model="customField.Name" ngRequired="true" ngTrim="true"/> </td>
+                            <td ng-if="customField.IsEditingMode"><input type="text" ng-model="customField.Value" required ngTrim="true"/></td>
+                            <td ng-if="customField.IsEditingMode" class="text-right"><a class="label label-default" ng-click="saveCustomField($index)"><i class="fa fa-save"></i></a> <a class="label label-danger" ng-click="removeCustomField($index)"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="tab-pane" id="images">
+                    <input id="fileupload" type="file" name="myfiles" multiple/>
+                    <div id="files" class="files"></div>
+                </div>
+                <div class="tab-pane" id="collections">
+                    <select id='selCollections' multiple='multiple'>
+                    </select>
+                </div>
+                <div class="tab-pane cont" id="seo">
+                    <div class="form-group has-error">
+                        <label>*Url</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">http://www.jasonstore.com/products/</span>
+                            <input type="text" class="form-control" ng-model="product.ResourceId">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Reset</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Page Title</label>
+                        <div>
+                            <input type="text" class="form-control" ng-model="product.PageTitle"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Meta Description</label>
+                        <div>
+                            <textarea class="form-control" rows="5" ng-model="product.MetaDescription"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" ng-click="saveProduct()" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-default">Preview</button>
+    </div>
+
+    <!-- variation modal -->
+    <div id="md-variation" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="modal-dialog"  class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Variation</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="variationForm" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">*SKU</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="inputEmail3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Option1</label>
+                            <div class="col-sm-8">
+                                <select id="selOption1" class="form-control" >
+                                    <option value="0" selected>No Track</option>
+                                    <option value="1">Tracking</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Option2</label>
+                            <div class="col-sm-8">
+                                <select id="selOption2" class="form-control" >
+                                    <option value="0" selected>No Track</option>
+                                    <option value="1">Tracking</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Option3</label>
+                            <div class="col-sm-8">
+                                <select id="selOption3" class="form-control" >
+                                    <option value="0" selected>No Track</option>
+                                    <option value="1">Tracking</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Price</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="txtPrice">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label">Manage Inventory Method</label>
+                            <div class="col-sm-8">
+                                <select id="selInvertoryMethod" class="form-control" ng-model="selectedInvertoryMethod">
+                                    <option value="0" selected>No Track</option>
+                                    <option value="1">Tracking</option>
+                                </select>
+                                <div id="invertoryMethodPanel" style="padding-top: 20px; padding-left: 20px;" ng-show="selectedInvertoryMethod == '1'">
+                                    <div class="form-inline">
+                                        <p>
+                                            <label class="control-label">Invertory quantity</label>
+                                            <input type="text" class="form-control" name="regularPrice" ng-model="product.regularPrice">
+                                        </p>
+                                    </div>
+                                    <div class="form-inline">
+                                        <p>
+                                            <label class="control-label">Low level quantity</label>
+                                            <input type="text" class="form-control" name="regularPrice" ng-model="product.regularPrice">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var _selectedCollections = [];
+
+    $(document).ready(function(){
+
+        $('#selCollections').multiSelect({
+            selectableHeader: "<div class='custom-header'>Selectable collections</div>",
+            selectionHeader: "<div class='custom-header'>Selection collections</div>",
+            afterSelect: function(values){
+                _selectedCollections.push(values);
+            },
+            afterDeselect: function(values){
+                _selectedCollections.pop(values);
+            }
+        });
+
+        $('#md-variation').on('shown.bs.modal', function() {
+            var initModalHeight = $('#modal-dialog').outerHeight(); //give an id to .mobile-dialog
+            var userScreenHeight = $(document).outerHeight();
+            if (initModalHeight > userScreenHeight) {
+                $('#modal-dialog').css('overflow', 'auto'); //set to overflow if no fit
+            } else {
+                $('#modal-dialog').css('margin-top', (userScreenHeight / 2) - (initModalHeight/2)); //center it if it does fit
+            }
+
+        });
+
+
+        $('#fileupload').fileupload({
+            url: "/upload",
+            dataType: 'json',
+            autoUpload: true,
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                    .test(window.navigator.userAgent),
+            previewMaxWidth: 200,
+            previewMaxHeight: 200,
+            previewCrop: true
+        });
+    });
+
+</script>
+

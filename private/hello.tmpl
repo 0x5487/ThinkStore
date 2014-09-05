@@ -1,0 +1,38 @@
+<html>
+	<head>
+	</head>
+	<body>
+		{{ $displayTerm := true}}
+		
+		{{if $displayTerm}}			
+			{{ $displayTerm1 := 0}}
+			{{$displayTerm1}}
+			Hello true <br/>
+		{{else}}
+			{{ $displayTerm := "Jason"}}
+			{{$displayTerm}}
+			Hello false <br/>
+		{{end}}
+		
+		{{ .aa := $displayTerm}}
+		
+		{{range .Collections}}
+			{{if and (gt .Id 0) (eq .Id 1)}}				
+				myid:{{.Id}}<br/>
+			{{end}}
+			collections are existing {{.Id}}<br/>
+		{{else}}
+			collections aren't existing<br/>
+		{{end}}
+		
+
+		
+		<p>
+			{{template "footer" .}}
+		</p>
+	</body>
+</html>
+
+
+
+
