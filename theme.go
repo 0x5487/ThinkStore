@@ -47,7 +47,7 @@ func (theme *Theme) create() error {
 
 func getThemes(storeId int) *[]Theme {
 	themes := make([]Theme, 0)
-	err := _engine.Where("\"StoreId\" = ?", storeId).Find(&themes)
+	err := _engine.Where("store_id = ?", storeId).Find(&themes)
 	PanicIf(err)
 	return &themes
 }
@@ -55,7 +55,7 @@ func getThemes(storeId int) *[]Theme {
 func getThemeByName(storeId int, themeName string) *Theme {
 	theme := Theme{}
 	logInfo(toString(storeId))
-	err := _engine.Where("\"StoreId\" = ? and \"name\" = ?", storeId, themeName).Find(&theme)
+	err := _engine.Where("store_id = ? and name = ?", storeId, themeName).Find(&theme)
 
 	PanicIf(err)
 	return &theme

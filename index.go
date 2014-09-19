@@ -34,7 +34,7 @@ func init() {
 
 	_engine.ShowSQL = true
 	_engine.TZLocation = time.UTC
-	_engine.SetMapper(core.SameMapper{})
+	_engine.SetMapper(core.SnakeMapper{})
 	err = _engine.DropTables(new(IdGenertator), new(Host), new(Store), new(User), new(Theme), new(Template), new(Page), new(Image), new(Collection), new(Product), new(CustomField), new(Variation), new(collection_product), new(image_any))
 	PanicIf(err)
 

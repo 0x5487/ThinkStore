@@ -45,7 +45,7 @@ func (template *Template) create() error {
 
 func getTemplates(storeId int) *[]Template {
 	templates := make([]Template, 0)
-	err := _engine.Where("\"StoreId\" = ?", storeId).Find(&templates)
+	err := _engine.Where("store_id = ?", storeId).Find(&templates)
 
 	PanicIf(err)
 
